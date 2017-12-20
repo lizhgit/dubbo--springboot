@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.provider.dao.UserDao">
+	<sql id="User_Clause">
+		<if test="user_id != null">
+			AND user_id=#{user_id}
+		</if>
+		<if test="user_name != null and user_name !=''">
+			AND user_name=#{user_name}
+		</if>
+		
+		<if test="password != null and password !=''">
+			AND password=#{password}
+		</if>
+	</sql>
+	<insert id="insertUser" parameterType="com.test.provider.entity.User">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+        </selectKey>
+		INSERT INTO T_DB_USER_LIZHENG(password,user_name) 
+		VALUES (#{password} ,#{user_name})
+	</insert>
+	<select id="findUser" parameterType="com.test.provider.entity.User" resultType="com.test.provider.entity.User">
+		SELECT * FROM T_DB_USER_LIZHENG
+		<where>
+			<include refid="User_Clause"/>
+		</where>
+	</select>
+
+</mapper>
