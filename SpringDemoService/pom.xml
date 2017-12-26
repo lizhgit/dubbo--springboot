@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>e4s</groupId>
+	<artifactId>SpringDemoService</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>e4s</name>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.2.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+	<repositories>
+			<!-- 如有Nexus私服. -->
+			<repository>
+				<id>nexus</id>
+				<name>Team Nexus Repository</name>
+				<url>http://172.26.161.125:8888/nexus/content/groups/public</url> 
+			</repository> 
+			
+			<repository>
+				<id>central</id>
+				<name>Central Repository</name>
+				<url>http://repo.maven.apache.org/maven2</url>	
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+			</repository>
+			
+			<repository>
+				<id>repo.springsource.org</id>
+				<name>repo.springsource.org-releases</name>
+				<url>http://repo.springsource.org/libs-milestone-local</url>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+			</repository>
+		</repositories>
+	
+		<!-- 设定插件仓库 Nexus私服. -->
+		<pluginRepositories> 
+			<pluginRepository> 
+				<id>nexus</id>
+				<name>Team Nexus Repository</name>
+				<url>http://172.26.161.125:8888/nexus/content/groups/public</url> 
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+			</pluginRepository>
+		</pluginRepositories> 
+		
+		<distributionManagement>
+	      <repository>
+	          <id>e4s-nexus</id>
+	          <name>Nexus Release Repository</name>
+	          <url>http://172.26.161.125:8888/nexus/content/repositories/e4s_release/</url>
+	      </repository>
+	      <snapshotRepository>
+	          <id>e4s-nexus</id>
+	          <name>Nexus Snapshot Repository</name>
+	          <url>http://172.26.161.125:8888/nexus/content/repositories/e4s/</url>
+	      </snapshotRepository>
+	  </distributionManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-data-jpa</artifactId>
+	    </dependency>		
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional> </dependency> -->
+
+		<dependency>  
+        <groupId>com.alibaba</groupId>  
+         <artifactId>dubbo</artifactId>   
+        <version>2.5.5</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+			</exclusions>
+      </dependency>  
+     <dependency>  
+         <groupId>org.apache.zookeeper</groupId>  
+         <artifactId>zookeeper</artifactId>  
+        <version>3.3.6</version>  
+         <exclusions>  
+            <exclusion>  
+                <groupId>log4j</groupId>  
+                <artifactId>log4j</artifactId>  
+            </exclusion>  
+         </exclusions>  
+      </dependency>  
+      <dependency>  
+         <groupId>log4j</groupId>  
+         <artifactId>log4j</artifactId>  
+        <version>1.2.16</version>  
+     </dependency>  
+
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<!--new -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>spring-boot:run</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
